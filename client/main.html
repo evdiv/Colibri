@@ -1,0 +1,78 @@
+<head>
+    <title>Colibri - collaboration and getting feedback</title>
+</head>
+
+<body>
+{{>nav}}
+
+{{>colibri}}
+
+</body>
+
+<template name="colibri">
+    <div id="gutter-opt-demo3" class="container-fluid">
+        {{#each projects}}
+        {{>project}}
+        {{/each}}
+    </div>
+
+    {{#if adding_project}}
+    {{>addProjectForm}}
+    {{/if}}
+
+</template>
+
+<template name="project">
+    <div class="item well span4">
+        <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+
+        <div class="poster-info">
+            <span class="timestamp">{{prettyDate}}</span>
+        </div>
+
+        <h4 class="muted">{{title}}</h4>
+        <p>{{description}}</p>
+
+        {{#if currentUser}}
+        <p>{{> addComment}}</p>
+        {{/if}}
+
+
+    </div>
+</template>
+
+<template name="nav">
+    <div class="navbar navbar-static-top">
+        <div class="navbar-inner">
+            <a class="brand" href="#">Colibri</a>
+            <ul class="nav">
+                <li><a class="addProject" href="#">New Project</a></li>
+            </ul>
+            <ul class="nav pull-right">
+                <li>{{> loginButtons align="right"}}</li>
+            </ul>
+        </div>
+    </div>
+</template>
+
+<template name="addProjectForm">
+    {{#if currentUser}}
+    <h3>Add Project</h3>
+    <label for="title">Title</label>
+    <input class="title" type="text" name="title" value="" id="title"><br />
+
+    <label for="description">Description</label>
+    <textarea class="description input-xlarge" name="description" id="description" rows="6"></textarea><br />
+
+    <a href="#" class="btn btn-success save">Save</a>
+    <a href="#" class="btn cancel" data-dismiss="modal">Cancel</a>
+    {{else}}
+    <p>You have to login first</p>
+    {{/if}}
+</template>
+
+<template name="addComment">
+    <textarea class="description input-xlarge" name="comment" id="comment" rows="4" placeholder="your comment here..."></textarea><br />
+    <a href="#" class="btn btn-success comment">Add yor comment</a>
+</template>
+
